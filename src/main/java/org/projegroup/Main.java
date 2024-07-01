@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -32,5 +34,19 @@ public class Main {
         // 3.3 Imprimindo todos os funcionários com todas suas informações
         System.out.println("Lista de funcionários:");
         funcionarios.forEach(System.out::println);
+
+        // 3.5 Agrupando os funcionários por função em um MAP
+        Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
+                .collect(Collectors.groupingBy(Funcionario::getFuncao));
+
+        // 3.6 Imprimindo os funcionários, agrupados por função
+        System.out.println("\nFuncionários agrupados por função:");
+        for (Map.Entry<String, List<Funcionario>> entry : funcionariosPorFuncao.entrySet()) {
+            System.out.println("Função: " + entry.getKey());
+            for (Funcionario fun : entry.getValue()) {
+                System.out.println("    " + fun);
+            }
+            System.out.print("\n");
+        }
     }
 }
