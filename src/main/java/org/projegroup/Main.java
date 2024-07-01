@@ -48,5 +48,14 @@ public class Main {
             }
             System.out.print("\n");
         }
+
+        // 3.8 Imprimindo os funcionários que fazem aniversário no mês 10 e 12
+        System.out.println("\nFuncionários que fazem aniversário nos meses 10 e 12:");
+        funcionarios.forEach(f -> {
+            int mes = f.getDataNascimento().getMonthValue();
+            if (mes == 10 || mes == 12) {
+                System.out.println(f);
+            }
+        });
     }
 }
