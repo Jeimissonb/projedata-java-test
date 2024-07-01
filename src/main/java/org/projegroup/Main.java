@@ -3,6 +3,8 @@ package org.projegroup;
 import org.projegroup.entities.Funcionario;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -29,6 +31,11 @@ public class Main {
         funcionarios.add(new Funcionario("Laura", parse("08/07/1994", dtf), new BigDecimal("3017.45"), "Gerente"));
         funcionarios.add(new Funcionario("Heloísa", parse("24/05/2003", dtf), new BigDecimal("1606.85"), "Eletricista"));
         funcionarios.add(new Funcionario("Helena", parse("02/09/1996", dtf), new BigDecimal("2799.93"), "Gerente"));
+
+        //Bonus: Adicionando joão em um novo objeto;
+        Optional<Funcionario> joaoOpt = funcionarios.stream()
+                .filter(f -> f.getNome().equals("João"))
+                .findFirst();
 
         // 3.2 Remover o funcionário “João” da lista
         funcionarios.removeIf(f -> f.getNome().equals("João"));
@@ -71,6 +78,29 @@ public class Main {
         List<Funcionario> funcionariosOrdenados = new ArrayList<>(funcionarios);
         funcionariosOrdenados.sort(comparing(Funcionario::getNome));
         funcionariosOrdenados.forEach(System.out::println);
+
+        // 3.11 Imprimindo o total dos salários dos funcionários
+        final BigDecimal totalSalarios = funcionarios.stream()
+                .map(Funcionario::getSalario)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        System.out.println(new StringBuilder().append("\nTotal dos salários dos funcionários: ").append(NumberFormat.getInstance().format(totalSalarios)).toString());
+
+        // 3.12 Imprimindo quantos salários mínimos ganha cada funcionário, considerando que o salário mínimo é R$1212.00
+        final BigDecimal salarioMinimo = new BigDecimal("1212.00");
+        System.out.println("\nSalários em relação ao salário mínimo:");
+
+        for (Funcionario f : funcionarios) {
+            final BigDecimal salariosMinimos = f.getSalario().divide(salarioMinimo, 2, RoundingMode.HALF_UP);
+            System.out.println(f.getNome() + " ganha " + NumberFormat.getInstance().format(salariosMinimos) + " salários mínimos.");
+        }
+
+        // Imprimindo as informações de João, antes de ser removido da lista (armazenado em um objeto auxiliar)
+        joaoOpt.ifPresent(joao -> {
+            System.out.println("\n\nBônus: ");
+            System.out.println("\nInformações do João antes de ser removido:");
+            System.out.println(joao);
+        });
 
 
     }
