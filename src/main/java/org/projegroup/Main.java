@@ -29,6 +29,8 @@ public class Main {
         // 3.2 Remover o funcionário “João” da lista
         funcionarios.removeIf(f -> f.getNome().equals("João"));
 
-        System.out.println(funcionarios);
+        // 3.3 Imprimindo todos os funcionários com todas suas informações
+        System.out.println("Lista de funcionários:");
+        funcionarios.forEach(System.out::println);
     }
 }
