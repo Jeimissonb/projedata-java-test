@@ -1,7 +1,9 @@
 package org.projegroup.entities;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Funcionario extends Pessoa{
     private BigDecimal salario;
@@ -34,5 +36,15 @@ public class Funcionario extends Pessoa{
 
     public void setFuncao(String funcao) {
         this.funcao = funcao;
+    }
+
+    @Override
+    public String toString() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        nf.setGroupingUsed(true);
+        return "Nome: " + getNome() + ", Data de Nascimento: " + getDataNascimento().format(dtf) + ", Salário: " + nf.format(salario) + ", Função: " + funcao;
     }
 }
