@@ -26,6 +26,8 @@ public class Main {
         funcionarios.add(new Funcionario("Heloísa", LocalDate.parse("24/05/2003", dtf), new BigDecimal("1606.85"), "Eletricista"));
         funcionarios.add(new Funcionario("Helena", LocalDate.parse("02/09/1996", dtf), new BigDecimal("2799.93"), "Gerente"));
 
+        // 3.2 Remover o funcionário “João” da lista
+        funcionarios.removeIf(f -> f.getNome().equals("João"));
 
         System.out.println(funcionarios);
     }
