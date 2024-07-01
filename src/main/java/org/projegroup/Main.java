@@ -5,10 +5,11 @@ import org.projegroup.entities.Funcionario;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.*;
+import static java.util.Comparator.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -36,7 +37,7 @@ public class Main {
         funcionarios.forEach(System.out::println);
 
         // 3.5 Agrupando os funcionários por função em um MAP
-        Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
+        final Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream()
                 .collect(Collectors.groupingBy(Funcionario::getFuncao));
 
         // 3.6 Imprimindo os funcionários, agrupados por função
@@ -57,5 +58,11 @@ public class Main {
                 System.out.println(f);
             }
         });
+
+        // 3.9 Imprimindo o funcionário com a maior idade
+        final Funcionario maisVelho = min(funcionarios, comparing(Funcionario::getDataNascimento));
+        final int idadeMaisVelho = LocalDate.now().getYear() - maisVelho.getDataNascimento().getYear();
+        System.out.println("\nFuncionário com a maior idade:");
+        System.out.println("Nome: " + maisVelho.getNome() + ", Idade: " + idadeMaisVelho);
     }
 }
