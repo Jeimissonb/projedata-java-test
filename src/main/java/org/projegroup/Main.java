@@ -22,8 +22,8 @@ public class Main {
 
         // 3.1 Inserindo todos os funcionários
         funcionarios.add(new Funcionario("Maria", parse("18/10/2000", dtf), new BigDecimal("2009.44"), "Operador"));
-        funcionarios.add(new Funcionario("João", parse("12/05/1990", dtf), new BigDecimal("2284.38"), "Coordenador"));
-        funcionarios.add(new Funcionario("Caio", parse("02/05/1961", dtf), new BigDecimal("9836.14"), "Operador"));
+        funcionarios.add(new Funcionario("João", parse("12/05/1990", dtf), new BigDecimal("2284.38"), "Operador"));
+        funcionarios.add(new Funcionario("Caio", parse("02/05/1961", dtf), new BigDecimal("9836.14"), "Coordenador"));
         funcionarios.add(new Funcionario("Miguel", parse("14/10/1988", dtf), new BigDecimal("19119.88"), "Diretor"));
         funcionarios.add(new Funcionario("Alice", parse("05/01/1995", dtf), new BigDecimal("2234.68"), "Recepcionista"));
         funcionarios.add(new Funcionario("Heitor", parse("19/11/1999", dtf), new BigDecimal("1582.72"), "Operador"));
@@ -33,7 +33,7 @@ public class Main {
         funcionarios.add(new Funcionario("Helena", parse("02/09/1996", dtf), new BigDecimal("2799.93"), "Gerente"));
 
         //Bonus: Adicionando joão em um novo objeto;
-        Optional<Funcionario> joaoOpt = funcionarios.stream()
+        final Optional<Funcionario> joaoOpt = funcionarios.stream()
                 .filter(f -> f.getNome().equals("João"))
                 .findFirst();
 
